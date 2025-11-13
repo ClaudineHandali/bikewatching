@@ -1,0 +1,95 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:root {
+    --color-departures: steelblue;
+    --color-arrivals: darkorange;
+  }
+
+#map {
+  position: relative; /* Needed for absolute positioning of SVG */
+  width: 100vw;
+  height: 100vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+#map svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background: none;
+  opacity: 0.6;
+  pointer-events: none; /* <-- This allows Mapbox map to receive mouse/zoom events */
+}
+#map svg circle {
+    --color: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+  );
+  fill: var(--color);
+    pointer-events: auto; /* circles now respond to hover for tooltips */
+  }
+
+  header {
+    display: flex;
+    align-items: baseline;
+    gap: 1em;
+    padding: 0.5em 1em;
+  }
+  
+  header label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: auto; /* Push slider to the right */
+  }
+  
+  header time {
+    display: block;
+    margin-top: 0.25em;
+    font-weight: bold;
+  }
+  
+  header em {
+    display: block;
+    margin-top: 0.1em;
+    font-style: italic;
+    color: #888;
+    font-size: 0.9em;
+  }
+
+  .legend {
+    display: flex;
+    gap: 1px; /* tiny space between swatches */
+    margin-block: 1em; /* space above/below */
+  }
+  
+  .legend > div {
+    flex: 1; /* equal width */
+    height: 2em; /* swatch height */
+    --color: color-mix(
+      in oklch,
+      var(--color-departures) calc(100% * var(--departure-ratio)),
+      var(--color-arrivals)
+    );
+    background-color: var(--color);
+    text-align: center;
+    line-height: 2em;
+    font-size: 0.8rem;
+    color: white; /* or pick contrast color */
+  }
+  
+  
